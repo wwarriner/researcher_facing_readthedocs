@@ -40,11 +40,17 @@ Floating IPs are required if you want an instance to talk to devices on the inte
 Creating a Key Pair
 -------------------
 
-A Key Pair is required for SSH access to OpenStack instances for security reasons.
+A Key Pair is required for SSH access to OpenStack instances to ensure an acceptable minimum level of security and access control.
 
-Using a password protected Key Pair is highly recommended for additional security, as it buys time to revoke a key if it is compromised by an attacker. Currently, this is only possible by uploading a custom public key generated on your local machine.
+.. note::
+   Key pairs are split into two components: a public key and a private key. The private key is held only on a single machine that you own or control. If the private key is revealed to any other person or system, it should be considered compromised and should be revoked as soon as possible. The public key is placed on a remote system that you do not control. When you connect to the remote system, a one-time encrypted message is sent to your machine. The message is encrypted using the public key. The private key is used to decrypt the message and send it back to the remote system to be verified. If someone else had a copy of the private key, they could impersonate you and gain access to the same remote system as though they were you.
 
-Good practice is to only use one key pair per person and per local machine. So if you have two computers, each one will need its own key pair. If you have two users, each will need their own key pair. Private keys are secrets and should not be passed around. Copying the key increases the risk of the system being compromised by an attacker.
+.. tip::
+   Good practice is to only use one key pair per person, per local machine. So if you have two computers, each one will need its own key pair. If you have two users, each will need their own key pair.
+
+.. tip::
+   Using a password protected Key Pair is highly recommended for additional security, as it buys time to revoke a key if it is compromised by an attacker. Currently, this is only possible by uploading a custom public key generated on your local machine.
+
 
 1. Click "Compute" in the left-hand navigation pane to open the fold-out menu.
 
@@ -90,17 +96,18 @@ Good practice is to only use one key pair per person and per local machine. So i
    .. figure:: ./images/key_pairs_005.png
       :alt: Image showing MINGW64 terminal on Windows. Commands have been used to move the private key file into the ssh folder and add it to the ssh agent.
 
-It is alternately possible to use a custom key pair created on your local machine. We assume you know how to create a key pair on your local machine and have already done so. To upload a key pair, replace steps 3 and 4 above with the following, perform step 5 from above, and skip step 6.
+.. tip::
+   It is alternately possible to use a custom key pair created on your local machine. We assume you know how to create a key pair on your local machine and add it to your ssh-agent, and have already done so. To upload a key pair, replace steps 3 to 6 above with the following two steps.
 
-3. Click "Import Public Key" to open a dialog box.
-4. Fill out the dialog box.
+   3. Click "Import Public Key" to open a dialog box.
+   4. Fill out the dialog box.
 
-   a. Enter a "Key Pair Name".
-   b. Select "SSH Key" in the "Key Type" drop-down box.
-   c. Click "Browse..." to upload a public key file from your custom key pair **OR** copy-paste the content of that key file into the "Public Key" box.
+      a. Enter a "Key Pair Name".
+      b. Select "SSH Key" in the "Key Type" drop-down box.
+      c. Click "Browse..." to upload a public key file from your custom key pair **OR** copy-paste the content of that key file into the "Public Key" box.
 
-   .. figure:: ./images/key_pairs_alt_002.png
-      :alt: Image showing the Import Public Key dialog. The dialog form is empty.
+      .. figure:: ./images/key_pairs_alt_002.png
+         :alt: Image showing the Import Public Key dialog. The dialog form is empty.
 
 Creating an Instance
 --------------------
