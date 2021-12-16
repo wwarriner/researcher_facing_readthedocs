@@ -26,6 +26,12 @@ if errorlevel 9009 (
 )
 
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
+if "%1" == "html" (
+	copy NUL "%BUILDDIR%/html/.nojekyll"
+	rmdir /s/q "docs\" > NUL 2> NUL
+	mkdir "docs\" > NUL 2> NUL
+	move /y "%BUILDDIR%/html" "docs\"
+)
 goto end
 
 :help
